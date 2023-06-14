@@ -3,8 +3,9 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CallerController;
 use App\Http\Controllers\CallQueueController;
-
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ChatRoomController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,14 @@ Route::post('/login', [AuthController::class, 'loginUser']);
 Route::get('/callqueues', [CallerController::class, 'index']);
 
 Route::put('/update-queue/{id}', [CallQueueController::class, 'updateQueue']);
+
+Route::post('/chat-room', [ChatRoomController::class, 'createChatRoom']);
+Route::get('/chat-rooms', [ChatRoomController::class, 'index']);
+
+Route::get('/chat-message/messages/{room_id}', [ChatMessageController::class, 'loadChatMessage']);
+Route::post('/chat-message/message', [ChatMessageController::class, 'saveMessage']);
+
+
+
 
 
