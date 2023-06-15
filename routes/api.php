@@ -38,7 +38,10 @@ Route::get('/chat-rooms', [ChatRoomController::class, 'index']);
 Route::get('/chat-message/messages/{room_id}', [ChatMessageController::class, 'loadChatMessage']);
 Route::post('/chat-message/message', [ChatMessageController::class, 'saveMessage']);
 
-
+Route::get('test', function() {
+    event(new App\Events\Test());
+    return "Event sent!";
+});
 
 
 

@@ -19,4 +19,6 @@ class CallQueueController extends Controller
         return response()->json($callQueue);
     }
 
+
+
 }
