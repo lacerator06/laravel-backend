@@ -33,7 +33,7 @@ Route::get('/callqueues', [CallerController::class, 'index']);
 Route::put('/update-queue/{id}', [CallQueueController::class, 'updateQueue']);
 
 Route::post('/chat-room', [ChatRoomController::class, 'createChatRoom']);
-Route::get('/chat-rooms', [ChatRoomController::class, 'index']);
+Route::get('/chat-rooms/{csr_id}', [ChatRoomController::class, 'chatRoomByCSR']);
 
 Route::get('/chat-message/messages/{room_id}', [ChatMessageController::class, 'loadChatMessage']);
 Route::post('/chat-message/message', [ChatMessageController::class, 'saveMessage']);

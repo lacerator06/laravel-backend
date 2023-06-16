@@ -18,6 +18,11 @@ class ChatRoomController extends Controller
         return ChatRoom::all();
     }
 
+    function chatRoomByCSR(Request $request, $csr_id)
+    {
+        return ChatRoom::where('user_id', $csr_id)
+            ->get();
+    }
     function createChatRoom(Request $request)
     {
 
@@ -40,8 +45,7 @@ class ChatRoomController extends Controller
 
         $call_queue = CallQueue::create(['caller_id' => $request->customer_id]);
 
-
-        return (Caller::join('call_queues', 'call_queues.caller_id', '=', 'callers.id')
+        $call_queue_callers = Caller::join('call_queues', 'call_queues.caller_id', '=', 'callers.id')
             ->leftJoin('users', 'call_queues.csr_id', '=', 'users.id')
             ->select(
                 "call_queues.id",
@@ -53,10 +57,14 @@ class ChatRoomController extends Controller
                 "date_end",
                 "users.firstname as csr_firstname",
                 "users.lastname as csr_lastname",
-                "transaction"
+                "transaction",
+                "caller_id"
             )
             ->where('call_queues.id', $call_queue->id)
-            ->get()
-        );
+            ->get();
+
+
+        return response()->json(['queue'=>$call_queue_callers, 'chat_room'=>$chat_room]);
+
     }
 }
